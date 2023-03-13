@@ -1,11 +1,5 @@
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  OutlinedInput,
-} from "@mui/material";
-import TextField from "@mui/material/TextField";
-import React from "react";
+import React, { useEffect, useState } from "react";
+// import { useCreateTodoMutation } from "../../apiSlice";
 import {
   ButtonStyle,
   FormControlStyle,
@@ -13,15 +7,38 @@ import {
 } from "./TodoForm.styled";
 
 function TodoForm() {
+  // const [createTodo] = useCreateTodoMutation();
+  const [valueTodo, setValueTodo] = useState("");
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValueTodo(e.target.value);
+  };
+  const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
+  // useEffect(() => {
+  //   createTodo({
+  //     id: 1,
+  //     name: valueTodo,
+  //   });
+  //   console.log();
+  // }, [valueTodo]);
   return (
-    <FormControlStyle variant="outlined">
-      <TextFieldStyle
-        id="outlined-adornment-weight"
-        aria-describedby="outlined-weight-helper-text"
-        placeholder="Enter new to do"
-      />
-      <ButtonStyle variant="contained">ADD TO DO</ButtonStyle>
-    </FormControlStyle>
+    <form onSubmit={handleSubmit}>
+      <FormControlStyle>
+        <TextFieldStyle
+          id="outlined-adornment-weight"
+          aria-describedby="outlined-weight-helper-text"
+          placeholder="Enter new to do"
+          name="todo"
+          onChange={handleChange}
+          value={valueTodo}
+        />
+        <ButtonStyle variant="contained" type="submit">
+          ADD TO DO
+        </ButtonStyle>
+      </FormControlStyle>
+    </form>
   );
 }
 export default TodoForm;
