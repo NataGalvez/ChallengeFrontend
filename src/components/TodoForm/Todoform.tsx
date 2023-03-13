@@ -15,14 +15,7 @@ function TodoForm() {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
-
-  // useEffect(() => {
-  //   createTodo({
-  //     id: 1,
-  //     name: valueTodo,
-  //   });
-  //   console.log();
-  // }, [valueTodo]);
+  const disabledButton = !valueTodo.length;
   return (
     <form onSubmit={handleSubmit}>
       <FormControlStyle>
@@ -34,7 +27,11 @@ function TodoForm() {
           onChange={handleChange}
           value={valueTodo}
         />
-        <ButtonStyle variant="contained" type="submit">
+        <ButtonStyle
+          variant="contained"
+          type="submit"
+          disabled={disabledButton}
+        >
           ADD TO DO
         </ButtonStyle>
       </FormControlStyle>
