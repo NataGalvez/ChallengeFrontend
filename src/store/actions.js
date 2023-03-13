@@ -14,6 +14,10 @@ const todoUpdated = ()=>({
     type:types.UPDATE_TODOS
     
 })
+const todoCreated = ()=>({
+    type:types.CREATE_TODOS
+    
+})
 
 export const loadTodos = ()=>{
     return function(dispatch){
@@ -35,6 +39,14 @@ export const updateTodos = (id)=>{
     return function(dispatch){
         axios.patch(`${'https://my-json-server.typicode.com/AlvaroArratia/static-todos-api/todos/'}${id}`).then(()=>{
             dispatch(todoUpdated())
+        }).catch(error=>console.log('error',error))
+    }
+    
+}
+export const createTodos = (todo)=>{
+    return function(dispatch){
+        axios.post(`${'https://my-json-server.typicode.com/AlvaroArratia/static-todos-api/todos'}`).then(()=>{
+            dispatch(todoCreated())
         }).catch(error=>console.log('error',error))
     }
     

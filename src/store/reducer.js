@@ -22,6 +22,11 @@ const todosReducers = (state = initialState, action) =>{
                 return {
                     ...state,
                     loading:false
+                };
+                case types.CREATE_TODOS:
+                return {
+                    ...state,
+                    loading:false
                 }
         default:
             return state
