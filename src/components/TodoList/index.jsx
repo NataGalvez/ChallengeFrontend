@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import TodoListItem from "../TodoListItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,19 +7,22 @@ import {
   loadTodos,
   getTodos,
   updateTodos,
+  closeSnackBar,
 } from "../../store/actions";
-
+import Snackbar from "@mui/material/Snackbar";
 const TodoList = () => {
   const dispatch = useDispatch();
-  const { todos } = useSelector((state) => state.data);
+  const { todos, snackBar } = useSelector((state) => state.data);
+  const [open, setOpen] = useState(false);
 
   const toggleCheck = (todoId, isChecked) => {
     // Fix an ability to toggle task
     let newTodos = [...todos];
     let todo = newTodos.find((todo) => todo.id === todoId);
-    todo.checked = !isChecked;
     dispatch(updateTodos(todoId));
-    console.log(todo);
+    if (todoId <= 5) {
+      todo.checked = !isChecked;
+    }
   };
 
   useEffect(() => {
@@ -28,7 +31,15 @@ const TodoList = () => {
   const handleDelete = (todoId) => {
     // Fix an ability to delete task
     dispatch(deleteTodos(todoId));
-    dispatch(getTodos(todos.filter((todo) => todo.id !== todoId)));
+    if (todoId <= 5) {
+      dispatch(getTodos(todos.filter((todo) => todo.id !== todoId)));
+    }
+  };
+  const handleClose = () => {
+    dispatch(closeSnackBar());
+    let newTodos = [...todos];
+    let todo = newTodos.find((todo) => todo.checked || !todo.checked);
+    todo.checked = false;
   };
 
   return (
@@ -47,11 +58,18 @@ const TodoList = () => {
             </div>
           );
         })}
-      {!todos.lenght && (
+      {!todos.length && (
         <div className="no-todos">
           Looks like you&apos;re absolutely free today!
         </div>
       )}
+
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={snackBar}
+        onClose={() => handleClose()}
+        message="Error, no puede manipular información que no se encuentre en la API."
+      />
     </div>
   );
 };

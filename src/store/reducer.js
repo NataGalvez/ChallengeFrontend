@@ -1,8 +1,7 @@
 import * as types from './actionType'
 const initialState = {
     todos:[],
-    todo:{},
-    loading:true
+    snackBar:false,
     
 }
 const todosReducers = (state = initialState, action) =>{
@@ -27,6 +26,16 @@ const todosReducers = (state = initialState, action) =>{
                 return {
                     ...state,
                     loading:false
+                }
+                case types.GET_ERROR:
+                return {
+                    ...state,
+                    snackBar:true
+                }
+                case types.CLOSE_SNACKBAR:
+                return {
+                    ...state,
+                    snackBar:false
                 }
         default:
             return state

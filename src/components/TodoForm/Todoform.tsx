@@ -17,7 +17,7 @@ function TodoForm() {
   const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(createTodos() as any);
-    todos.push({ id: todos.length, label: valueTodo });
+    todos.push({ id: todos.length, label: valueTodo, checked: false });
   };
   const disabledButton = !valueTodo.length;
   return (

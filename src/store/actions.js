@@ -18,7 +18,14 @@ const todoCreated = ()=>({
     type:types.CREATE_TODOS
     
 })
-
+const getError = ()=>({
+    type:types.GET_ERROR,
+    
+})
+const snackBarClose = ()=>({
+    type:types.CLOSE_SNACKBAR,
+    
+})
 export const loadTodos = ()=>{
     return function(dispatch){
     axios.get('https://my-json-server.typicode.com/AlvaroArratia/static-todos-api/todos').then((response)=>{
@@ -31,7 +38,7 @@ export const deleteTodos = (id)=>{
     return function(dispatch){
         axios.delete(`${'https://my-json-server.typicode.com/AlvaroArratia/static-todos-api/todos/'}${id}`).then(()=>{
             dispatch(todoDeleted())
-        }).catch(error=>console.log('error',error))
+        }).catch(()=> dispatch(getError()))
     }
     
 }
@@ -39,7 +46,7 @@ export const updateTodos = (id)=>{
     return function(dispatch){
         axios.patch(`${'https://my-json-server.typicode.com/AlvaroArratia/static-todos-api/todos/'}${id}`).then(()=>{
             dispatch(todoUpdated())
-        }).catch(error=>console.log('error',error))
+        }).catch(()=> dispatch(getError()))
     }
     
 }
@@ -47,7 +54,12 @@ export const createTodos = (todo)=>{
     return function(dispatch){
         axios.post(`${'https://my-json-server.typicode.com/AlvaroArratia/static-todos-api/todos'}`).then(()=>{
             dispatch(todoCreated())
-        }).catch(error=>console.log('error',error))
+        }).catch(()=> dispatch(getError()))
     }
     
+}
+export const closeSnackBar =()=>{
+    return function(dispatch){
+        dispatch(snackBarClose())
+    }
 }
