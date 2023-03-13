@@ -13,7 +13,6 @@ import Snackbar from "@mui/material/Snackbar";
 const TodoList = () => {
   const dispatch = useDispatch();
   const { todos, snackBar } = useSelector((state) => state.data);
-  const [open, setOpen] = useState(false);
 
   const toggleCheck = (todoId, isChecked) => {
     // Fix an ability to toggle task

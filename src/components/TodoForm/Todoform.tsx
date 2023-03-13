@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createTodos, getTodos } from "../../store/actions";
 import {
   ButtonStyle,
   FormControlStyle,
   TextFieldStyle,
-} from "./TodoForm.styled";
+} from "./todoForm.styled";
 
-function TodoForm() {
+function todoForm() {
   const dispatch = useDispatch();
   const { todos } = useSelector((state: any) => state.data);
   const [valueTodo, setValueTodo] = useState("");
@@ -42,4 +42,4 @@ function TodoForm() {
     </form>
   );
 }
-export default TodoForm;
+export default todoForm;
