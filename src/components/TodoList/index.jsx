@@ -8,6 +8,7 @@ import {
   getTodos,
   updateTodos,
 } from "../../store/actions";
+
 const TodoList = () => {
   const dispatch = useDispatch();
   const { todos } = useSelector((state) => state.data);
@@ -18,6 +19,7 @@ const TodoList = () => {
     let todo = newTodos.find((todo) => todo.id === todoId);
     todo.checked = !isChecked;
     dispatch(updateTodos(todoId));
+    console.log(todo);
   };
 
   useEffect(() => {
@@ -25,7 +27,6 @@ const TodoList = () => {
   }, []);
   const handleDelete = (todoId) => {
     // Fix an ability to delete task
-
     dispatch(deleteTodos(todoId));
     dispatch(getTodos(todos.filter((todo) => todo.id !== todoId)));
   };
@@ -46,7 +47,7 @@ const TodoList = () => {
             </div>
           );
         })}
-      {!todos && (
+      {!todos.lenght && (
         <div className="no-todos">
           Looks like you&apos;re absolutely free today!
         </div>
